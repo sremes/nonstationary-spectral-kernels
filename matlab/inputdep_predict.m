@@ -1,5 +1,9 @@
 function [y_pred,y_var] = inputdep_predict(x,y,z,hyp,hyp_kernels)
 %% Predict output at z, given training input x and output y
+% hyp: kernel hyperparameters (latent functions mu(x), ell(x) and sigma(x))
+% hyp_kernels: kernels for latent functions mu(x), ell(x), sigma(x)
+
+% Compute kernels:
 Kxx = inputdep_gibbs(x,x,hyp);
 % Kxz = inputdep_gibbs(x,z,hyp); % is not directly computable
 

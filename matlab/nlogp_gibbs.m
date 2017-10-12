@@ -1,4 +1,10 @@
 function [l,g] = nlogp_gibbs(hyp, u, x, hyp_kernel)
+% Compute the negative log posterior and its gradient, used for optimizing 
+% hyperparameters i.e. latent functions mu(x), ell(x) and sigma(x)).
+% hyp: kernel hyperparameters (latent functions mu(x), ell(x) and sigma(x))
+% u: observed outputs u(x)
+% x: input points
+% hyp_kernels: kernels for latent functions mu(x), ell(x), sigma(x)
 N = size(x,1);
 A = length(hyp.log_w);
 

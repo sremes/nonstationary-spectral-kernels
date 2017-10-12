@@ -1,5 +1,11 @@
 function hyp = init_inputdep(u,x,A,ell)
-% A=2;
+% Init the GSM kernel by fitting GMM's on the spectrogram of the data.
+% u: signal values
+% x: input points (regularly spaced!)
+% A: number of mixture components in GSM
+% ell: length-scale of gaussian kernel to be used for interpolating from spectrogram -> x
+
+
 N = length(x); dt = max(x) - min(x);
 Fs = N/dt;
 
@@ -8,9 +14,9 @@ Fs = N/dt;
 idx = (F < 0.5 | F > (Fs/4)); % remove very small/big freqs
 S = S(~idx,:); F = F(~idx);
 spectrogram(u,[],[],[],Fs)
+
 % find A peaks at the first time point, and find the closest peaks at next
 % the time points, interpolate linearly between the time points
-
 [mu(:,1),sigma(:,1),w(:,1),prev] = fit_gmm_spec_density(F,S(:,1),A);
 for t = 2:length(T)
     [mu(:,t),sigma(:,t),w(:,t),prev] = fit_gmm_spec_density(F,S(:,t),A,prev);

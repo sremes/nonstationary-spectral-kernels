@@ -1,5 +1,8 @@
 function [K,dhyp,dKdt] = inputdep_gibbs(x, y, hyp, hyp_kernels)
 %% Generalized spectral mixture (GSM) kernel
+% x, y: input points
+% hyp: kernel hyperparameters (latent functions mu(x), ell(x) and sigma(x))
+% hyp_kernels: kernels for latent functions mu(x), ell(x), sigma(x)
 
 K = zeros(size(x,1),size(y,1));
 A = length(hyp.log_w);

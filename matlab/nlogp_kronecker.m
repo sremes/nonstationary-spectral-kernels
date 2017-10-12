@@ -1,10 +1,12 @@
 function [l,g,K] = nlogp_kronecker(hyp, u, x, hyp_kernel)
-% marginal likelihood and gradients for the generalized spectral mixture product (GSM-P) kernel
-% using kronecker inference on a multidimensional grid
+% Negative marginal likelihood and gradients for the generalized spectral 
+% mixture product (GSM-P) kernel using Kronecker inference on a multidimensional grid.
 % x: cell array of length P containing the input points along all P axes
-% u: P-dimensional array
+% u: P-dimensional array of output values
 % hyp: {P,A} cell array for parameters of each P dimensions and A mixture
-% components
+%      components
+% hyp_kernels: kernels for latent functions mu(x), ell(x), sigma(x)
+
 
 [P,A] = size(hyp.log_w);
 
@@ -48,8 +50,6 @@ eig_vals = real(eig_vals + noise);
 Kinv_u = kron_mv(Q, kron_mv(Qt,u(:)) ./ eig_vals);
 l = 0.5 * (sum(log(eig_vals)) + u(:)'*Kinv_u(:));
 
-% Kinv_u2 = (kron(K{1},K{2}) + noise*eye(numel(u)))\u(:);
-% l2 = 0.5*(logdet(kron(K{1},K{2})+noise*eye(numel(u))) + u(:)'*Kinv_u2);
 % add prior terms
 for p = 1:P 
     for a = 1:A

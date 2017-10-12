@@ -1,5 +1,5 @@
 function y = logmvnpdf(X, Mu, Sigma, is_chol)
-%MVNPDF Multivariate normal probability density function (pdf).
+%LOGMVNPDF Multivariate normal log probability density function (pdf).
 %   Y = MVNPDF(X) returns the probability density of the multivariate normal
 %   distribution with zero mean and identity covariance matrix, evaluated at
 %   each row of X.  Rows of the N-by-D matrix X correspond to observations or

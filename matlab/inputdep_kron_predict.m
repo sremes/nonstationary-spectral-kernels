@@ -1,4 +1,9 @@
 function [ustar] = inputdep_kron_predict(hyp, u, x, xstar, hyp_kernel)
+% Compute predictions from u(x) -> ustar(xstar).
+% hyp: kernel hyperparameters (latent functions mu(x), ell(x) and sigma(x))
+% hyp_kernels: kernels for latent functions mu(x), ell(x), sigma(x)
+% Note: consumes a lot of memory if xstar has too many samples! 
+%    (may want to do predictions in batches)
 
 [P,A] = size(hyp.log_w);
 

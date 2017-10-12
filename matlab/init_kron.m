@@ -1,4 +1,12 @@
 function hyp = init_kron(x,A,hyp_kernel,noise,max_freq)
+% Random initialization for Kronecker GSM, initialize mu(x), ell(x) and sigma(x) to
+% constant functions. Returns a hyperparameter struct.
+% x: input points
+% A: number of GSM components
+% hyp_kernel: kernels for latent functions mu(x), ell(x), sigma(x)
+% noise: signal noise
+% max_freq: highest frequency to use in initialization
+
 P = length(x);
 for a=1:A
     for p=1:P
