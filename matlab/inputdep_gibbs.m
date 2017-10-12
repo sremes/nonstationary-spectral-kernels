@@ -32,7 +32,7 @@ for a = 1:A
     K = K + Ka;
     if nargout > 1 % compute gradients as well
         % w
-        oneN = ones(N,1); %oneN(idx) = 0; oneN = ~oneN;
+        oneN = ones(N,1); 
         tmp = (oneN*w' + w*oneN') .* E .* (phi1*phi2');
         dK.log_w{a} = @(R)  diag(R * tmp) .* w; % Seems OK (checkgrad)
         if nargout > 2
@@ -69,30 +69,10 @@ for a = 1:A
         const = (w*w') .* (phi1*phi2');
         temp_funs = cell(N,1);
         
-%         tic
-%         [XX,YY] = meshgrid(l);
-%         tmp_grad = -YY.*(XX.^4 - YY.^4 -4*XX.^2.*D)./(sqrt(2*XX.*YY./(XX.^2+YY.^2)).*(XX.^2+YY.^2).^3).*E;
-%         oneN = ones(N,1);
         dKdt.log_sigma{a} = zeros([N N N]);
-        
-%         L = sqrt(2*(l*l') ./ (l.^2 + l'.^2)).^(-3);
-%         LE = L.*E;
-%         L1 = repmat(l', N,1);
-%         L4 = l.^4 - l.^4';
-%         L2 = 4 * l.^2 * ones(1,N);
-%         dL = -L1.*( L4 -L2.*D) .* LE;
-%         for n = 1:N
-%             cross = sparse(N,N);
-%             cross(n,1) = 1; cross(1,n) = 1;
-%             tmp = full(dL .* cross);
-%             temp_funs{n} = @(R) sum(R(:).*const(:).*tmp(:)) * (l(n));
-%             if nargout > 2
-%                 dKdt.log_sigma{a}(:,:,n) =  const .* tmp * l(n);
-%             end
-%         end
         for n = 1:N
             tmp = zeros(N,N);
-            for i = 1:N % TODO: why is the full loop version faster than partly vectorized?
+            for i = 1:N 
                 for j = 1:N
                     if (i==n) || (j==n)
                         XX = l(i); YY = l(j);
